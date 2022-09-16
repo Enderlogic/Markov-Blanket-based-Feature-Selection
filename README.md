@@ -1,7 +1,7 @@
 # Markov Blanket-based Feature Selection
 
 This is an example code to demonstrate a Markov Blanket-based Feature Selection (MBFS) algorithm for imputation. We
-incorporate this idea with MissForest imputation algorithm. 
+incorporate this idea with the MissForest imputation algorithm. 
 
 ## Command inputs:
 
