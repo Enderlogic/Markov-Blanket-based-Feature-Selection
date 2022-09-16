@@ -1,0 +1,6 @@
+bnsl==0.1.52
+numba==0.55.2
+numpy==1.22.4
+pandas==1.4.4
+rpy2==3.5.1
+scikit_optimize==0.9.0

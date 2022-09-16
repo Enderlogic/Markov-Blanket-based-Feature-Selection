@@ -52,6 +52,7 @@ def main(args):
         noise_type: type of noise ('MCAR', 'MAR' or 'MNAR')
         ratio_of_partially_observed_variables: proportion of missing values
         error_rate: maximum error rate
+        feature_selection: feature selection approach ('None' or 'mbfs')
     :return:
         data_imputed: imputed data
     '''
@@ -66,18 +67,13 @@ def main(args):
     data_missing = add_missing(data_clean, miss_mechanism(list(data_clean.columns), args.noise_type,
                                                           args.ratio_of_partially_observed_variables),
                                m_max=args.error_rate)
-    data_imputed = ro.conversion.rpy2py(missForest(ro.conversion.py2rpy(data_missing), fs='None')[0])
+    data_imputed = ro.conversion.rpy2py(missForest(ro.conversion.py2rpy(data_missing), fs=args.feature_selection)[0])
 
     print('data:', args.data_name)
     print('data size:', args.data_size)
     print('noise type:', args.noise_type)
     print('error rate', args.error_rate)
-    print('feature selection:', 'None')
-    print('RMSE:', rmse(data_clean, data_imputed, data_missing))
-    if args.data_type == 'synthetic':
-        print('F1:', f1(bnlearn.modelstring(model)[0], ges(data_imputed)))
-    data_imputed = ro.conversion.rpy2py(missForest(ro.conversion.py2rpy(data_missing), fs='mbfs')[0])
-    print('feature selection:', 'mbfs')
+    print('feature selection:', args.feature_selection)
     print('RMSE:', rmse(data_clean, data_imputed, data_missing))
     if args.data_type == 'synthetic':
         print('F1:', f1(bnlearn.modelstring(model)[0], ges(data_imputed)))
@@ -118,9 +114,12 @@ if __name__ == '__main__':
         help='ratio of partially observed varaibles',
         default=0.5,
         type=float)
-
+    parser.add_argument(
+        '--feature_selection',
+        choices=['None', 'mbfs'],
+        default='mbfs',
+        type=str)
     args = parser.parse_args()
 
     # Calls main function
     imputed_data = main(args)
-    # imputed_data.to_csv('imputed_data/', args.data_name, '_.csv', index=False)
