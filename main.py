@@ -17,7 +17,7 @@ missForest = ro.globalenv['missForest']
 
 
 # create missing mechanism
-def miss_mechanism(varnames, noise='MAR', rom=0.5):
+def miss_mechanism(varnames, missingtype='MAR', rom=0.5):
     '''
 
     :param dag: true DAG
@@ -28,17 +28,17 @@ def miss_mechanism(varnames, noise='MAR', rom=0.5):
     cause_dict = {}
     vars_miss = random.sample(varnames, round(len(varnames) * rom))
     vars_comp = [v for v in varnames if v not in vars_miss]
-    if noise == 'MCAR':
+    if missingtype == 'MCAR':
         for var in vars_miss:
             cause_dict[var] = []
-    elif noise == 'MAR':
+    elif missingtype == 'MAR':
         for var in vars_miss:
             cause_dict[var] = random.sample(vars_comp, 1)
-    elif noise == 'MNAR':
+    elif missingtype == 'MNAR':
         for var in vars_miss:
             cause_dict[var] = random.sample([v for v in vars_miss if v != var], 1)
     else:
-        raise Exception('noise ' + noise + ' is undefined.')
+        raise Exception('noise ' + missingtype + ' is undefined.')
     return cause_dict
 
 
@@ -49,7 +49,7 @@ def main(args):
         data_type: synthetic or real-world
         data_name: the name of data, for example, 'ecoli70' (synthetic) and 'breast' (real-world)
         data_size: number of instance (for synthetic only)
-        noise_type: type of noise ('MCAR', 'MAR' or 'MNAR')
+        missing_type: type of missingness ('MCAR', 'MAR' or 'MNAR')
         ratio_of_partially_observed_variables: proportion of missing values
         error_rate: maximum error rate
         feature_selection: feature selection approach ('None' or 'mbfs')
@@ -64,14 +64,14 @@ def main(args):
     else:
         raise Exception('Unknown data_type:', args.data_type, '. Should be either \'synthetic\' or \'real world\' ')
 
-    data_missing = add_missing(data_clean, miss_mechanism(list(data_clean.columns), args.noise_type,
+    data_missing = add_missing(data_clean, miss_mechanism(list(data_clean.columns), args.missing_type,
                                                           args.ratio_of_partially_observed_variables),
                                m_max=args.error_rate)
     data_imputed = ro.conversion.rpy2py(missForest(ro.conversion.py2rpy(data_missing), fs=args.feature_selection)[0])
 
     print('data:', args.data_name)
     print('data size:', args.data_size)
-    print('noise type:', args.noise_type)
+    print('missing type:', args.missing_type)
     print('error rate', args.error_rate)
     print('feature selection:', args.feature_selection)
     print('RMSE:', rmse(data_clean, data_imputed, data_missing))
@@ -100,7 +100,7 @@ if __name__ == '__main__':
         default=1000,
         type=float)
     parser.add_argument(
-        '--noise_type',
+        '--missing_type',
         choices=['MCAR', 'MAR', 'MNAR'],
         default='MCAR',
         type=str)

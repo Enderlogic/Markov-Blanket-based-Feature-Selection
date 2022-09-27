@@ -8,7 +8,7 @@ incorporate this idea with MissForest imputation algorithm.
 - data_type: synthetic or real-world
 - data_name: ecoli70 (synthetic) or breast (real-world)
 - data_size: data size (for synthetic data only)
-- noise_type: noise type (MCAR, MAR or MNAR)
+- missing_type: type of missingness (MCAR, MAR or MNAR)
 - error_rate: maximum error rate for partially observed variables
 - ratio_of_partially_observed_variables: proportion of partially observed variables
 - feature_selection: feature selection approach (None or mbfs)
