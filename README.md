@@ -23,3 +23,12 @@ $ python3 main.py --data_type 'synthetic' --data_name: 'ecoli70'
 
 ## Output:
 - imputed_data: imputed data set
+
+
+## Reproducibility
+
+In order to reproduce our results, please do the following steps:
+
+1. Download the data sets from this [repository][1]
+
+[1]: http://google.com/ "data repository"
