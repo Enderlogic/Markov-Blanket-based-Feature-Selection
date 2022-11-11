@@ -10,9 +10,9 @@ base, bnlearn = importr('base'), importr('bnlearn')
 model_list = ['car', 'mushroom', 'game', 'iris', 'breast', 'wine']
 missing_type_list = ['MCAR', 'MAR', 'MNAR']
 missing_rate_list = [0.1, 0.3, 0.5]
-algorithm_list = ['mf_None', 'mf_mbfs', 'mean', 'mode', 'knn', 'gain']
+algorithm_list = ['Mean', 'Mode', 'KNN', 'GAIN', 'softImpute', 'MF', 'MBMF']
 result_path = 'results_uci.csv'
-columns = ['model', 'noise', 'errorrate', 'algorithm', 'precision (RMSE or PFC)']
+columns = ['model', 'datasize', 'missingtype', 'missingrate', 'algorithm', 'rmse', 'F1']
 result = pandas.DataFrame(columns=columns)
 result_list = result.values.tolist()
 

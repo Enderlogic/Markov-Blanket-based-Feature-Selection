@@ -58,7 +58,7 @@ gain_parameters = {'batch_size': 64,
                    'alpha': 10,
                    'iterations': 10000}
 
-model_list = ['iris', 'breast', 'wine']
+model_list = ['iris', 'breast', 'wine', 'car', 'game', 'mushroom']
 missing_type_list = ['MCAR', 'MAR', 'MNAR']
 algorithm_list = ['Mean', 'Mode', 'KNN', 'GAIN', 'MF', 'MBMF', 'softImpute']
 missing_rate_list = [0.1, 0.3, 0.5]
