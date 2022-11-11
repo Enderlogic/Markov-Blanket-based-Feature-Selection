@@ -25,7 +25,7 @@ $ python3 main.py --data_type 'synthetic' --data_name: 'ecoli70'
 - imputed_data: imputed data set
 
 
-## Reproducibility
+## Reproducibility:
 
 In order to reproduce our results, please do the following steps:
 
