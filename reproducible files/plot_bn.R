@@ -23,7 +23,7 @@ for (datasize in c(500, 1000, 2000, 3000)) {
   }
 }
 result.summary$missingtype = factor(result.summary$missingtype, levels = c('MCAR', 'MAR', 'MNAR'))
-result.summary$algorithm = factor(result.summary$algorithm, levels = c('MF', 'MBMF', 'Mean', 'KNN', 'GAIN', 'SoftImpute', 'Complete'))
+result.summary$algorithm = factor(result.summary$algorithm, levels = c('MF', 'MBMF', 'Mean', 'KNN', 'GAIN', 'softImpute', 'Complete'))
 result.summary[result.summary$`Missing rate` == 0.1, 'Missing rate'] = 'Missing rate 10%'
 result.summary[result.summary$`Missing rate` == 0.3, 'Missing rate'] = 'Missing rate 30%'
 result.summary[result.summary$`Missing rate` == 0.5, 'Missing rate'] = 'Missing rate 50%'
