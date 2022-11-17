@@ -1,7 +1,7 @@
 library(bnlearn)
 library(randomForest)
 set.seed(990806)
-rm(list = ls())
+# rm(list = ls())
 
 gs_m = function(data, var.missing, threshold = 0.1) {
   # find the intrinsic MB
@@ -47,9 +47,6 @@ gs_m = function(data, var.missing, threshold = 0.1) {
       if (p.value >= threshold) {
         mb_o[[paste(s)]] = setdiff(mb_o[[paste(s)]], can)
       }
-    }
-    if (length(mb_o[[paste(s)]]) == 0) {
-      mb_o[paste(s)] = list(seq(1, p)[-s])
     }
   }
   return(mb_o)
@@ -363,7 +360,12 @@ missForest <- function(xmis, maxiter = 10, ntree = 100, variablewise = FALSE,
               colnames(misX) = c(colnames(xmis)[mb_X_v], paste0(colnames(xmis)[mb_X_r], '_r'))
               misX = data.frame(lapply(misX, as.factor))
               for (v in paste0(colnames(xmis)[mb_X_r], '_r')) {
-                levels(misX[[v]]) = levels(obsX[[v]])
+                if (nlevels(obsX[[v]]) < nlevels(misX[[v]])) {
+                  obsX = obsX[, !names(obsX) %in% c(v)]
+                  misX = misX[, !names(misX) %in% c(v)]
+                } else {
+                  levels(misX[[v]]) = levels(obsX[[v]]) 
+                }
               }
             }
             if (is.null(ncol(obsX))) {

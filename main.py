@@ -98,7 +98,7 @@ if __name__ == '__main__':
         '--data_size',
         help='number of instance for synthetic data',
         default=1000,
-        type=float)
+        type=int)
     parser.add_argument(
         '--missing_type',
         choices=['MCAR', 'MAR', 'MNAR'],
