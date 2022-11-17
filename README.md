@@ -16,7 +16,7 @@ incorporate this idea with the MissForest imputation algorithm.
 ## Example:
 
 ```angular2html
-$ python3 main.py --data_type 'synthetic' --data_name: 'ecoli70'
+$ python3 main.py --data_type 'synthetic' --data_name 'ecoli70'
 --data_size 1000 --noise_type 'MCAR' --error_rate 0.3
 --ratio_of_partially_observed_variables 0.5 --feature_selection 'mbfs'
 ```
