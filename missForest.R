@@ -22,9 +22,9 @@ gs_m = function(data, var.missing, threshold = 0.1) {
         idx = which(rowSums(is.na(data[, c(s, strtoi(can), mb_o[[paste(s)]])])) == 0)
         if (length(idx) != 0) {
           if (length(mb_o[[paste(s)]]) == 0) {
-            candidate[can] = ci.test(data[idx, s], data[idx, strtoi(can)])$p.value
+            candidate[can] = ci.test(colnames(data)[s], colnames(data)[strtoi(can)], data = data)$p.value
           } else {
-            candidate[can] = ci.test(data[idx, s], data[idx, strtoi(can)], data[idx, mb_o[[paste(s)]]])$p.value
+            candidate[can] = ci.test(colnames(data)[s], colnames(data)[strtoi(can)], colnames(data)[mb_o[[paste(s)]]], data = data)$p.value
           } 
         }
       }
@@ -40,7 +40,7 @@ gs_m = function(data, var.missing, threshold = 0.1) {
     for (can in candidate) {
       idx = which(rowSums(is.na(data[, c(s, strtoi(can), mb_o[[paste(s)]])])) == 0)
       if (length(idx) != 0) {
-        p.value = ci.test(data[idx, s], data[idx, strtoi(can)], data[idx, setdiff(mb_o[[paste(s)]], can)])$p.value 
+        p.value = ci.test(colnames(data)[s], colnames(data)[strtoi(can)], colnames(data)[setdiff(mb_o[[paste(s)]], can)], data = data)$p.value 
       } else {
         p.value = 0
       }
@@ -165,7 +165,7 @@ missForest <- function(xmis, maxiter = 10, ntree = 100, variablewise = FALSE,
   for (t.co in 1:p) {
     if (is.numeric(xmis[[t.co]])) {
       varType[t.co] <- 'numeric'
-      ximp[is.na(xmis[,t.co]),t.co] <- mean(xmis[,t.co], na.rm = TRUE)
+      ximp[is.na(xmis[,t.co]),t.co] <- mean(xmis[[t.co]], na.rm = TRUE)
       next()
     } 
     if (is.factor(xmis[[t.co]])) {
