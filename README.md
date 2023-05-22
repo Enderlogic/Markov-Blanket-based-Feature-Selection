@@ -1,6 +1,6 @@
 # Markov Blanket-based Feature Selection
 
-This is an example code for this ICLR [paper] (https://openreview.net/pdf?id=GrpU6dxFmMN) in which we proposed a feature selection algorithm called Markov Blanket-based Feature Selection (MBFS) for missing data imputation.
+This is an example code for this ICLR [paper](https://openreview.net/pdf?id=GrpU6dxFmMN) in which we proposed a feature selection algorithm called Markov Blanket-based Feature Selection (MBFS) for missing data imputation.
 
 ## Command inputs:
 
